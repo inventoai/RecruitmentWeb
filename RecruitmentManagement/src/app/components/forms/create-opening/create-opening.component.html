@@ -13,25 +13,20 @@
                 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label> Employement Type </mat-label>
-                        <mat-select matNativeControl id="employeeType" name="employeeType"
-                            (selectionChange)="contract($event.value)" [(ngModel)]="opening.employeeType"
-                            #employeeType="ngModel" required>
+                        <mat-select matNativeControl id="employeeType" name="employeeType" (selectionChange)="contract($event.value)" [(ngModel)]="opening.employeeType" #employeeType="ngModel" required>
                             <mat-option value="Permanent">Permanent</mat-option>
                             <mat-option value="Contract">Contract</mat-option>
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex id="contractId" style="display: none; margin-right: 20px;"
-                        appearance="outline">
+                    <mat-form-field fxFlex id="contractId" style="display: none; margin-right: 20px;" appearance="outline">
                         <mat-label> Duration </mat-label>
-                        <input matInput type="text" placeholder="Duration" id="contractDuration" name="contractDuration"
-                            [(ngModel)]="opening.contractDuration">
+                        <input matInput type="text" placeholder="Duration" id="contractDuration" name="contractDuration" [(ngModel)]="opening.contractDuration">
                     </mat-form-field>
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label> Payroll Company </mat-label>
-                        <mat-select (selectionChange)="companyClients($event.value)" [(ngModel)]="opening.companyName"
-                            name="companyName" #companyName="ngModel" required>
+                        <mat-select (selectionChange)="companyClients($event.value)" [(ngModel)]="opening.companyName" name="companyName" #companyName="ngModel" required>
                             <mat-option *ngFor="let company of companies" [value]="company.companyName">
                                 {{ company.companyName }}
                             </mat-option>
@@ -39,31 +34,26 @@
                         <mat-error *ngIf="companyName.errors?.required"> CompanyName is required. </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlex id="clientBlockId" style="display: none; margin-left: 20px;"
-                        appearance="outline">
+                    <mat-form-field fxFlex id="clientBlockId" style="display: none; margin-left: 20px;" appearance="outline">
                         <mat-label>Select Clients</mat-label>
                         <mat-select id="clientName" name="clientName" [(ngModel)]="opening.clientName" #select multiple>
                             <div class="select-all">
-                                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
-                                    (change)="toggleAllSelection()">Select All</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection()">Select All</mat-checkbox>
                             </div>
-                            <mat-option (click)="optionClick()" *ngFor="let client of clients"
-                                [value]="client.clientName">
+                            <mat-option (click)="optionClick()" *ngFor="let client of clients" [value]="client.clientName">
                                 {{client.clientName}}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                 </div>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Select Domain</mat-label>
-                        <mat-select id="domain" (selectionChange)="domailRoles($event.value)"
-                            [(ngModel)]="opening.domain" name="domain" #domain="ngModel" required>
-                            <mat-option *ngFor="let domain of domains" [value]="domain">
-                                {{domain}}
+                        <mat-select id="domain" (selectionChange)="domailRoles($event.value)" [(ngModel)]="opening.domain" name="domain" #domain="ngModel" required>
+                            <mat-option *ngFor="let domain of domains" [value]="domain.id">
+                                {{domain.domains}}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="domain.errors?.required"> Role is required. </mat-error>
@@ -71,8 +61,7 @@
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Select Role</mat-label>
-                        <mat-select matNativeControl id="role" (selectionChange)="rolesDomain($event.value)"
-                            [(ngModel)]="opening.role" name="role" #role="ngModel" required>
+                        <mat-select matNativeControl id="role" [(ngModel)]="opening.role" name="role" #role="ngModel" required>
                             <mat-option *ngFor="let role of roles" [value]="role">
                                 {{role}}
                             </mat-option>
@@ -96,46 +85,37 @@
                 <!--<span layout="row">
                     <hr flex />
                 </span>-->
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Budget Range</mat-label>
-                        <input matInput type="text" placeholder="3x, 20 LPA" id="budgetRange" name="budgetRange"
-                            [(ngModel)]="opening.budgetRange" #budgetRange="ngModel" required>
+                        <input matInput type="text" placeholder="3x, 20 LPA" id="budgetRange" name="budgetRange" [(ngModel)]="opening.budgetRange" #budgetRange="ngModel" required>
                         <mat-error *ngIf="budgetRange.errors?.required"> Budget Range is required. </mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>No of Position</mat-label>
-                        <input matInput type="number" placeholder="eg. 4" id="nop" name="nop" [(ngModel)]="opening.nop"
-                            #nop="ngModel" required>
+                        <input matInput type="number" placeholder="eg. 4" id="nop" name="nop" [(ngModel)]="opening.nop" #nop="ngModel" required>
                         <mat-error *ngIf="nop.errors?.required"> NOP is required. </mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Experiance</mat-label>
-                        <input matInput type="text" id="experiance" name="experiance" placeholder="2 to 6 year.."
-                            [(ngModel)]="opening.experiance" #experiance="ngModel" required>
+                        <input matInput type="text" id="experiance" name="experiance" placeholder="2 to 6 year.." [(ngModel)]="opening.experiance" #experiance="ngModel" required>
                         <mat-error *ngIf="experiance.errors?.required">Experiance is required.</mat-error>
                     </mat-form-field>
 
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Notice Period</mat-label>
-                        <input matInput type="text" id="noticePeriod" name="noticePeriod"
-                            placeholder="Immediate to 45 days..." [(ngModel)]="opening.noticePeriod"
-                            #noticePeriod="ngModel" required>
+                        <input matInput type="text" id="noticePeriod" name="noticePeriod" placeholder="Immediate to 45 days..." [(ngModel)]="opening.noticePeriod" #noticePeriod="ngModel" required>
                         <mat-error *ngIf="noticePeriod.errors?.required">Notice period is required.</mat-error>
                     </mat-form-field>
 
                 </div>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                     <mat-form-field fxFlex appearance="outline">
                         <mat-label>Job Description</mat-label>
-                        <textarea matInput name="jobDescription" id="jobDescription" cols="30" rows="2"
-                            placeholder="JD........." [(ngModel)]="opening.jobDescription" #jobDescription="ngModel"
-                            required (keyup)="autoGrowTextZone($event)"></textarea>
+                        <textarea matInput name="jobDescription" id="jobDescription" cols="30" rows="2" placeholder="JD........." [(ngModel)]="opening.jobDescription" #jobDescription="ngModel" required (keyup)="autoGrowTextZone($event)"></textarea>
                         <mat-error *ngIf="jobDescription.errors?.required">JD is required.</mat-error>
                     </mat-form-field>
 
@@ -145,8 +125,7 @@
                     <hr flex />
                 </span>-->
                 <label fxFlex> <b>Work from home</b> * </label> <br>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                     <label for="chkYes">
                         <input type="radio" id="chkYes" name="chk" (click)="ShowHideDiv()" />
                         Yes
@@ -160,13 +139,10 @@
                 <span layout="row">
                     <hr flex />
                 </span>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                     <mat-form-field id="dvtext" style="display: none" fxFlex appearance="outline">
                         <mat-label>Time Duration</mat-label>
-                        <input matInput type="text" id="noticePeriod" name="wfh"
-                            placeholder="15 days, 1 month....something else." [(ngModel)]="opening.wfh" #wfh="ngModel"
-                            required>
+                        <input matInput type="text" id="noticePeriod" name="wfh" placeholder="15 days, 1 month....something else." [(ngModel)]="opening.wfh" #wfh="ngModel" required>
                         <mat-error *ngIf="wfh.errors?.required">Time duration for work from home is required.
                         </mat-error>
                     </mat-form-field>
@@ -179,18 +155,14 @@
 
                 <mat-form-field fxFlex appearance="outline">
                     <mat-label>Mandatory Skills</mat-label>
-                    <mat-chip-list #chipList aria-label="Skill selection" [ngModel]="opening.mandatorySkills"
-                        name="mandatorySkills" #mandatorySkills="ngModel">
-                        <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(skill)">
+                    <mat-chip-list #chipList aria-label="Skill selection" [ngModel]="opening.mandatorySkills" name="mandatorySkills" #mandatorySkills="ngModel">
+                        <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable" (removed)="remove(skill)">
                             {{skill}}
                             <button matChipRemove *ngIf="removable">
                                 <mat-icon>cancel</mat-icon>
                             </button>
                         </mat-chip>
-                        <input placeholder="Add Skills..." #skillInput [formControl]="skillCtrl"
-                            [matAutocomplete]="auto" [matChipInputFor]="chipList"
-                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+                        <input placeholder="Add Skills..." #skillInput [formControl]="skillCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
                         <mat-option *ngFor="let skill of filteredSkills | async" [value]="skill">
@@ -217,8 +189,7 @@
                 </div>-->
 
                 <h4> If any specific question, which we need to cross check with candidates * </h4>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="0px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                     <label for="chkYes1">
                         <input type="radio" id="chkYes1" name="chk1" (click)="ShowHideDiv1()" />
                         Yes
@@ -247,8 +218,7 @@
                                 {{question}}
                             </option>
                         </select> -->
-                        <input matInput type="text" id="question" name="question" placeholder="Write question......"
-                            [(ngModel)]="selectedQuestion.question">
+                        <input matInput type="text" id="question" name="question" placeholder="Write question......" [(ngModel)]="selectedQuestion.question">
                         <button mat-button matSuffix type="button" (click)="addQuestion(selectedQuestion.question)">
                             <mat-icon>library_add</mat-icon>
                         </button>
@@ -259,11 +229,9 @@
                     <input type="file" name="profile" (change)="onFileSelect($event)" accept=".pdf,.doc,.docx" />
                 </div>
                 <br>
-                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px"
-                    fxLayoutGap.lt-md="10px">
+                <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="10px">
                     <button fxFlex="20" mat-raised-button color="warn" (click)="cancel()">Back</button>
-                    <button fxFlex="20" mat-raised-button color="primary" type="submit"
-                        [disabled]="openingForm.form.invalid">Create</button>
+                    <button fxFlex="20" mat-raised-button color="primary" type="submit" [disabled]="openingForm.form.invalid">Create</button>
                 </div>
 
             </form>
@@ -281,45 +249,34 @@
 <div id="domainForm" style="display: none;">
     <mat-card>
         <h3>Add New Domain and Sub-Domain</h3>
-        <!-- <p>{{domainForm.value | json}}</p> -->
+        <p>{{domainForm.value | json}}</p>
         <hr>
         <br>
-        <form novalidate #domainForm="ngForm" (ngSubmit)="submitDomain()">
+        <form autocomplete="off" novalidate [formGroup]="domainForm" (ngSubmit)="submitDomain()">
             <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutGap.lt-md="5px">
                 <mat-form-field fxFlex="25">
                     <mat-label>Domain</mat-label>
-                    <input matInput type="text" id="domain" name="domain" placeholder="Enter domain name.."
-                        [(ngModel)]="domainForm.domain" #domainName="ngModel" required>
-                    <mat-error *ngIf="domainName.errors?.required">Domain name is required.</mat-error>
+                    <input matInput type="text" id="domain" placeholder="Enter domain name.." formControlName="domain" required>
+                    <mat-error *ngIf="domain.errors?.required">Domain name is required.</mat-error>
                 </mat-form-field>
-                <!-- <mat-form-field fxFlex="25">
-                    <mat-label>Sub-Domain</mat-label>
-                    <input matInput type="text" id="subDomain" name="subDomain" placeholder="Enter domain name.."
-                        [(ngModel)]="domainForm.subDomain" #subDomain="ngModel" required>
-                    <mat-error *ngIf="subDomain.errors?.required">Sub-Domain name is required.</mat-error>
-                </mat-form-field> -->
-
             </div>
+
             <div>
                 <mat-form-field fxFlex="40">
                     <mat-label>Sub-Domain</mat-label>
                     <mat-chip-list #chipList>
-                        <mat-chip [color]="(item.invalid)?'warn':''" selected
-                            *ngFor="let item of subDomainlList; let i=index" [selectable]="true" [removable]="removable"
-                            (removed)="removeEmail(item)" required name="chips">
+                        <mat-chip [color]="(item.invalid)?'warn':''" selected *ngFor="let item of subDomainlList; let i=index" [selectable]="true" [removable]="removable" (removed)="removeEmail(item)" required name="chips">
                             {{item.value}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input matInput type="text" id="subDomain" name="subDomain" placeholder="Enter domain name.."
-                            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes "
-                            [matChipInputAddOnBlur]="true " (matChipInputTokenEnd)="addSubDomain($event) " />
+                        <input matInput type="text" id="subDomain" name="subDomain" placeholder="Enter domain name.." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes " [matChipInputAddOnBlur]="true " (matChipInputTokenEnd)="addSubDomain($event) "
+                        />
                     </mat-chip-list>
                 </mat-form-field>
             </div>
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="10px">
                 <button fxFlex="10" type="button" mat-raised-button color="warn" (click)="back()">Back</button>
-                <button fxFlex="10" mat-raised-button color="primary" type="submit"
-                    [disabled]="domainForm.form.invalid">Create</button>
+                <button fxFlex="10" mat-raised-button color="primary" type="submit" [disabled]="domainForm.invalid">Create</button>
             </div>
         </form>
     </mat-card>

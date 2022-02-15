@@ -33,7 +33,17 @@ export class GeneralService {
 
   addDomain(formData: FormData): Observable<any> {
     var adminId = JSON.parse(localStorage.getItem("approvedCredential")).adminId;
-    return this.https.post(`${environment.recruitmentLocalServer}/domains/${adminId}`, formData);
+    return this.https.post(`${environment.recruitmentServer}/domains/${adminId}`, formData);
+  }
+
+  getDomains(): Observable<any> {
+    var adminId = JSON.parse(localStorage.getItem("approvedCredential")).adminId;
+    return this.https.get(`${environment.recruitmentServer}/domains/${adminId}`);
+  }
+
+  getSubDomains(domainName): Observable<any> {
+    var adminId = JSON.parse(localStorage.getItem("approvedCredential")).adminId;
+    return this.https.get(`${environment.recruitmentServer}/domains/${adminId + domainName}`);
   }
 
 }

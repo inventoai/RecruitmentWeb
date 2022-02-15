@@ -3,13 +3,13 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CompanyList, openingForm } from '../../ReportDashboard/models/employeeModel';
-import { BackEnd, Domain, DomainForm, Experiance, FronEnd, NoticePeriod, Questions, skillSets } from '../../shared/model1';
+import { Experiance, NoticePeriod, Questions, skillSets } from '../../shared/model1';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { map, startWith } from 'rxjs/operators';
@@ -39,12 +39,7 @@ export class CreateOpeningComponent implements OnInit {
   allSelected = false;
   submitted = false;
   experiances = Experiance;
-  roles: any;
-  role1 = FronEnd;
-  role2 = BackEnd;
   roleValue;
-  domains = Domain;
-  domainForm = DomainForm;
   noticePeriods = NoticePeriod;
   questions = Questions;
   companies: Observable<CompanyList>;
@@ -68,7 +63,9 @@ export class CreateOpeningComponent implements OnInit {
   location = Locations;
   subDomainlList = [];
   subDomains = [];
-
+  domainForm: FormGroup;
+  domains: Observable<any>;
+  roles: any;
 
   constructor(private router: Router, private openingService: OpeningService, private _location: Location, private generalService: GeneralService,
     private employeeService: EmployeeService, private fb: FormBuilder) {
@@ -82,7 +79,19 @@ export class CreateOpeningComponent implements OnInit {
       this.companies = data;
       console.log(data);
     });
-    this.roles = this.role1.concat(this.role2);
+    // this.roles = this.role1.concat(this.role2);
+    this.domainForm = this.fb.group({
+      domain: ['']
+    });
+    this.reloadDomain();
+  }
+
+  reloadDomain() {
+    this.generalService.getDomains().subscribe(data => {
+      this.domains = data;
+      console.log(this.domains);
+    },
+      err => console.log(err));
   }
 
   companyClients(value) {
@@ -129,28 +138,14 @@ export class CreateOpeningComponent implements OnInit {
     }
   }
 
-  domailRoles(value) {
-    if (value == "Fron-End Developer") {
-      this.roles = this.role1;
-    }
-    else if (value == "Back-End Developer") {
-      this.roles = this.role2;
-    }
-    else {
-      this.roles = '';
-    }
+  async domailRoles(_id) {
+    this.generalService.getSubDomains(_id).subscribe(data => {
+      this.roles = JSON.parse(data);
+      console.log(this.roles);
+    },
+      err => console.log(err));
   }
 
-  rolesDomain(value) {
-    console.log(value);
-    if (this.role1.includes(value)) {
-      this.opening.domain = "Fron-End Developer";
-    }
-    else {
-      this.opening.domain = "Back-End Developer";
-    }
-
-  }
 
   ShowHideDiv() {
     this.chkYes = document.getElementById("chkYes");
@@ -275,10 +270,9 @@ export class CreateOpeningComponent implements OnInit {
     domainFormId.style.display = "block";
   }
   submitDomain() {
-    console.log(this.domainForm);
-    alert("New domain is added.");
+    console.log("FormValue ::::" + this.domainForm.get('domain').value + JSON.stringify(this.domainForm.value));
     var formData = new FormData;
-    formData.append("domainJson", JSON.stringify(this.domainForm));
+    formData.append("domainJson", JSON.stringify(this.domainForm.value));
     formData.append("subDomain", JSON.stringify(this.subDomains));
     this.generalService.addDomain(formData).subscribe(data => {
       console.log(data);
@@ -286,6 +280,8 @@ export class CreateOpeningComponent implements OnInit {
       openingFormId.style.display = "block";
       var domainFormId = document.getElementById("domainForm");
       domainFormId.style.display = "none";
+      this.domainForm.reset();
+      this.subDomains = [];
     },
       err => console.log(err));
   }
