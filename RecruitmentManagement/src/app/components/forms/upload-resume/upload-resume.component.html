@@ -1,0 +1,135 @@
+<mat-card>
+    <h2> Upload Profile </h2>
+    <hr>
+    <br>
+    <form [formGroup]="uploadForm" (ngSubmit)="onExtrctingData()">
+        <div>
+            <h4>Upload Resume</h4>
+            <input type="file" name="profile" (change)="onFileSelect($event)" accept=".pdf,.doc,.docx" />
+        </div>
+    </form>
+    <hr>
+
+    <h4> Candidate Details </h4>
+    <hr>
+    <div [hidden]="submitted" style="width:100%;" class="table-responsive">
+
+        <!-- <p> {{resumeData | json}} </p> -->
+        <form fxLayout="column" novalidate #resumeDataForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="120px" fxLayoutGap.lt-md="0px">
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="candidateName" [(ngModel)]="resumeData.candidateName"
+                        placeholder="Candidate Name" required name="candidateName" #candidateName="ngModel">
+                    <mat-error *ngIf="candidateName.errors?.required"> Candidate Name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="emailId" [(ngModel)]="resumeData.emailId" placeholder="Email Id"
+                        required name="emailId" #emailId="ngModel">
+                    <mat-error *ngIf="emailId.errors?.required"> Email is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="mobileNumber" [(ngModel)]="resumeData.mobileNumber"
+                        placeholder="Mobile Number" required name="mobileNumber" #mobileNumber="ngModel">
+                    <mat-error *ngIf="mobileNumber.errors?.required"> Mobile number is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <select matNativeControl id="totalExperiance" name="totalExperiance"
+                        [(ngModel)]="resumeData.totalExperiance" placeholder="Total Experiance" required
+                        name="totalExperiance" #totalExperiance="ngModel">
+                        <option value="" selected></option>
+                        <option *ngFor="let ex of experiance">
+                            {{ex}}
+                        </option>
+                    </select>
+                    <mat-error *ngIf="totalExperiance.errors?.required"> Total experiance is required. </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="120px" fxLayoutGap.lt-md="0px">
+                <mat-form-field fxFlex>
+                    <select matNativeControl id="relatedExperiance" required name="relatedExperiance"
+                        [(ngModel)]="resumeData.relatedExperiance" placeholder="Related Experiance" required
+                        name="relatedExperiance" #relatedExperiance="ngModel">
+                        <option value="" selected></option>
+                        <option *ngFor="let ex of experiance">
+                            {{ex}}
+                        </option>
+                    </select>
+                    <mat-error *ngIf="relatedExperiance.errors?.required"> Related experiance is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="cctc" [(ngModel)]="resumeData.cctc" placeholder="Cureent CTC"
+                        required name="cctc" #cctc="ngModel">
+                    <mat-error *ngIf="cctc.errors?.required"> Cureent CTC Name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="ectc" [(ngModel)]="resumeData.ectc" placeholder="Expected CTC"
+                        required name="ectc" #ectc="ngModel">
+                    <mat-error *ngIf="ectc.errors?.required"> Expected CTC Name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <mat-select matNativeControl id="np" required name="np" [(ngModel)]="resumeData.np"
+                        placeholder="Notice Period" required name="np" #np="ngModel">
+                        <mat-option *ngFor="let np of noticePeriod" [value]="np">
+                            {{np}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="np.errors?.required"> notice Period is required. </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="120px" fxLayoutGap.lt-md="0px">
+
+                <!--<mat-form-field fxFlex>
+                    <input matInput value="12/10/12" [matDatepicker]="datepicker" id="dos" [(ngModel)]="resumeData.dos"
+                        placeholder="Select Date" name="dos" #dos="ngModel" required>
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="dos.errors?.required"> Date of Submission is required. </mat-error>
+                </mat-form-field>-->
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="location" [(ngModel)]="resumeData.location"
+                        placeholder="Candidate Location" required name="location" #location="ngModel">
+                    <mat-error *ngIf="location.errors?.required"> Candidate location is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="others" [(ngModel)]="resumeData.others" placeholder="Others"
+                        required name="others" #others="ngModel">
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="remarks" [(ngModel)]="resumeData.remarks"
+                        placeholder="Recruiter Remarks" required name="remarks" #remarks="ngModel">
+                </mat-form-field>
+            </div>
+
+            <br>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="20px">
+                <button mat-button fxFlex class="background-primary text-floral-white" type="submit"
+                    [disabled]="resumeDataForm.form.invalid">Upload</button>
+                <button mat-button fxFlex class="background-primary text-floral-white"
+                    (click)="cancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <div [hidden]="!submitted">
+        <h4>Successfully submitted!</h4>
+    </div>
+    <br>
+
+
+</mat-card>

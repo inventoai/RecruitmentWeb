@@ -1,0 +1,104 @@
+<mat-card>
+    <h3> {{employeeName}} Daily Work Report </h3>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <div id="performanceButton" style="float: right; display: block;"><button mat-raised-button color="primary"
+                (click)="performanceTable()">Predicted Table</button></div>
+        <div id="detailButton" style="float: right; display: none;"><button mat-raised-button color="primary"
+                (click)="detailsTable()">Detail Table</button></div>
+    </div>
+
+    <div id="detailsTable" style="display: block;" class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="width: auto;">S.No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Slot</th>
+                    <!-- <th scope="col">Client Name</th>
+                    <th scope="col">Requirement Name</th> -->
+                    <th scope="col">Requirement Detail</th>
+                    <!-- <th scope="col">Verdict</th> -->
+                    <th scope="col">{{employeeName}} Remarks</th>
+                    <th scope="col">Candidate Detail</th>
+                    <th scope="col">TL Remarks</th>
+                    <th scope="col">SPOC Remarks</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let company of dataSource | filter:searchText;let i=index"> -->
+            <tbody *ngFor="let company of dataSource ;let i=index">
+                <tr>
+                    <td scope="row"> {{i+1}} </td>
+                    <td>{{company.dos | date: 'longDate'}} </td>
+                    <td>{{company.slot}} </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="opening(company.openingId)">
+                            <mat-icon>open_in_new</mat-icon>
+                        </button>
+                    </td>
+                    <td> {{company.remarks}} </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="candiadte(company.id)">
+                            <mat-icon>open_in_new</mat-icon>
+                        </button>
+                    </td>
+                    <td>{{company.position}} </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+    <div id="performanceTable" style="display: none;" class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col" style="background-color: yellow; color: black;">SFP</th>
+                    <th scope="col" style="background-color: green; color: black;">SS</th>
+                    <th scope="col" style="background-color: red; color: black;">SR</th>
+                    <th scope="col" style="background-color: lightcoral; color: black;">DO</th>
+                    <th scope="col" style="background-color: lightgreen; color: black;">CR</th>
+                    <th scope="col" style="background-color: green; color: black;">P</th>
+                    <th scope="col" style="background-color: yellow; color: black;">FS</th>
+                    <th scope="col" style="background-color: red; color: black;">YTS</th>
+                    <th scope="col" style="background-color: brown; color: black;">T</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="background-color: yellow; color: black;width: auto;height: auto;">16</td>
+                    <td style="background-color: green; color: black;width: auto;width: auto;height: auto;">21</td>
+                    <td style="background-color: red; color: black;width: auto;height: auto;">16</td>
+                    <td style="background-color: lightcoral; color: black;width: auto;height: auto;">2</td>
+                    <td style="background-color: lightgreen; color: black;width: auto;height: auto;">14</td>
+                    <td style="background-color: green; color: black;width: auto;height: auto;">19</td>
+                    <td style="background-color: yellow; color: black;width: auto;height: auto;">10</td>
+                    <td style="background-color: red; color: black;width: auto;height: auto;">10</td>
+                    <td style="background-color: brown; color: black;width: auto;height: auto;">7</td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+</mat-card>

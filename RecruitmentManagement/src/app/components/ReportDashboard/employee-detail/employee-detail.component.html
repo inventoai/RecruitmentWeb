@@ -1,0 +1,113 @@
+<mat-card>
+    <!-- <mat-card>
+        <div class="employee" *ngFor="let emp of dataSource" fxLayout="row" fxLayout.lt-md="column"
+            fxLayoutGap.lt-md="10px">
+            <div fxFlex>
+                <p><label for="">Employee Name</label> : {{emp.employeeName}}</p>
+                <p><label for="">Mobile</label> : {{emp.mobileNumber}}</p>
+            </div>
+            <div fxFlex>
+                <p><label for="">Gender</label> : {{emp.gender}}</p>
+                <p><label for="">Designation</label> : {{emp.designation}}</p>
+            </div>
+            <div fxFlex>
+                <p><label for="">Office Email</label> : {{emp.officeEmailId}}</p>
+                <p><label for="">Personal Email</label> : {{emp.personalEmailId}}</p>
+            </div>
+            <div fxFlex="100">
+                <h2>Hi {{emp.employeeName}} !</h2>
+            </div> 
+            <div fxFlex="10">
+                <img matListAvatar alt="User" src="data:image/png;base64,{{emp.photoFile_tag}}" height="80px"
+                    width="80px" style="border-radius: 50%;">
+             <embed width="100%" height="100%" src="data:application/pdf;base64,{{doc}}" type="application/pdf" /> 
+            </div>
+        </div>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </mat-card> -->
+    <!-- <div style="text-align: end; margin: 5px;">
+          <mat-form-field appearance="outline" style="margin-top: 30px; width: 160px;">
+                <input matInput type="text" id="search" placeholder="Type to Filter..." [(ngModel)]="searchText"
+                    autocomplete="off" name="search">
+            </mat-form-field>
+
+        <button mat-raised-button color="primary" routerLink='/dailyworkreport' routerLinkActive="active">Check
+            Uploaded Profiles
+            Status</button>
+    </div> -->
+    <h3>Upload Profile</h3>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Slot</th>
+                    <th>Comapny Name</th>
+                    <th>Client Name</th>
+                    <th>Experiance</th>
+                    <th>Budget Range</th>
+                    <th>Notice Period</th>
+                    <th>Job Description </th>
+                    <th>Mandtory Skills</th>
+                    <th>Work From Home</th>
+                    <th>Questions</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let data of dataSource1  | filter:searchText;let i=index"> -->
+            <tbody *ngFor="let data of dataSource1;let i=index">
+                <tr *ngIf="data.status == 10">
+                    <td> {{i+1}} </td>
+                    <td>{{data.date_time | date: "longDate"}}</td>
+                    <td>{{data.date_time | date: "mediumTime"}}</td>
+                    <td>{{data.slot}}</td>
+                    <td> {{data.companyName}} </td>
+                    <td> {{data.clientName}} </td>
+                    <td> {{data.experiance}} </td>
+                    <td> {{data.budgetRange}} </td>
+                    <td> {{data.noticePeriod}} </td>
+                    <td> {{data.jobDescription}} </td>
+                    <td>
+                        <!-- <div *ngFor="let sk of opening.mandatorySkills | keyvalue">
+                            <ul *ngIf=sk.value is true>
+                                <li> {{sk.key | uppercase}} </li>
+                            </ul>
+                        </div> -->
+                        <div *ngFor="let sk of data.mandatorySkills" id="menu">
+                            <ul>
+                                <li>{{sk}}</li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td> {{data.wfh}} </td>
+                    <td> {{data.questions}} </td>
+                    <td> <a mat-button
+                            [routerLink]="['/default/uploadresume', data.openingId,'work', data.recruiterId, 'timing', data.slot, 'allocation', data.workAllocationId]"><b>
+                                {{data.role}}</b>
+                        </a> </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+</mat-card>

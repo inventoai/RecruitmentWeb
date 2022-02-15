@@ -1,0 +1,98 @@
+<mat-card>
+
+    <h3><b>List of Uploaded Profile</b></h3>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+            <button mat-button matSuffix (click)="refresh()">
+                <mat-icon matSuffix>refresh</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div id="table" class="table-responsive" [hidden]="approved">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Submisssion Date</th>
+                    <th scope="col"> Name</th>
+                    <th scope="col">Email Id </th>
+                    <th scope="col">Mobile </th>
+                    <th scope="col">CCTC </th>
+                    <th scope="col">ECTC </th>
+                    <th scope="col">NP </th>
+                    <th>Total Experiance</th>
+                    <th>Related Experiance</th>
+                    <th scope="col">Location </th>
+                    <th scope="col">Remarks </th>
+                    <th scope="col">Action </th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let candidate of candidates | async | filter:searchText; let i=index"> -->
+            <tbody *ngFor="let candidate of candidates; let i=index">
+                <tr *ngIf=" candidate.status !== 20 && openingId == candidate.openingId">
+                    <td>{{i+1}} </td>
+                    <td> {{candidate.dos | date:'longDate'}} </td>
+                    <td> {{candidate.candidateName}} </td>
+                    <td> {{candidate.emailId}} </td>
+                    <td> {{candidate.mobileNumber}} </td>
+                    <td> {{candidate.cctc}} </td>
+                    <td>{{candidate.ectc}}</td>
+                    <td>{{candidate.np}}</td>
+                    <td>{{candidate.totalExperiance}}</td>
+                    <td>{{candidate.relatedExperiance}}</td>
+                    <td> {{candidate.location}} </td>
+                    <td>{{candidate.remarks}}</td>
+                    <!-- <td>{{candidate.status}}</td> -->
+                    <td>
+                        <div class="dropdown" id="recruiter">
+                            <a mat-button class="dropbtn"> <span class="fa fa-user-circle fa-lg"></span>
+                                Profile
+                            </a>
+                            <div class="dropdown-content">
+                                <a mat-button (click)="viewResume(candidate.candidateName,candidate.cvFile_tag)"
+                                    routerLinkActive="active">
+                                    <span class="fa fa-eye fa-lg"></span>Profiles View</a>
+                                <a mat-button (click)="duplicateProfile(candidate.id)" routerLinkActive="active">
+                                    <span class="fa fa-ban fa-lg"></span> Duplicate</a>
+                                <a mat-button (click)="rejectProfile(candidate.id)" routerLinkActive="active">
+                                    <span class="fa fa-ban fa-lg"></span> Screen Reject</a>
+                                <a mat-button
+                                    (click)="sharedProfile(candidate.id, candidate.emailId, candidate.openingId, candidate.recruiterId)"
+                                    routerLinkActive="active">
+                                    <span class="fa fa-check fa-lg"></span> Share With Client</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+    <div id="docx" style="display: none;">
+        <ngx-doc-viewer url={{url}} viewer="google" style="width:100%;height:93vh;">
+        </ngx-doc-viewer>
+        <br>
+        <button mat-raised-button color="primary" (click)="return()">Return</button>
+    </div>
+
+    <div [hidden]="!approved">
+        <mat-card>
+            <h4> This profile has approved.</h4>
+        </mat-card>
+    </div>
+
+    <!--<button mat-raised-button color="primary" (click)="back()">Back</button>-->
+
+</mat-card>

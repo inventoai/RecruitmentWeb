@@ -1,0 +1,61 @@
+<mat-card>
+    <h2><b>Clients List</b></h2>
+    <hr>
+    <div style="text-align: end; margin: 5px;">
+        <!--   <mat-form-field appearance="outline" style="margin-top: 30px; width: 160px;">
+                <input matInput type="text" id="search" placeholder="Type to Filter..." [(ngModel)]="searchText"
+                    autocomplete="off" name="search">
+            </mat-form-field> -->
+
+        <button mat-raised-button color="primary" routerLink='/default/clientregistration'
+            routerLinkActive="active">Client
+            Registration</button>
+    </div>
+    <br>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Client URL</th>
+                    <th scope="col">Branches</th>
+                    <th scope="col">Remarks</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of clients | filter:searchText;let i=index">
+                    <td scope="row"> {{i+1}} </td>
+                    <td> {{company.companyName}} </td>
+                    <td> {{company.clientName}} </td>
+                    <td> {{company.clientURL}} </td>
+                    <td> {{company.branches}} </td>
+                    <td> {{company.remarks}} </td>
+                    <td>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                            (click)="clientDetail()">
+                            <mat-icon>remove_red_eye_outline</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                            (click)="updateClient()">
+                            <mat-icon>edit_outline</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                            (click)="deleteClient()">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+
+</mat-card>

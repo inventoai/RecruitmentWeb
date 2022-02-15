@@ -1,0 +1,86 @@
+<mat-card>
+    <br>
+    <h3> Register Company </h3>
+    <hr>
+    <div [hidden]="submitted" style="width:100%;" class="table-responsive">
+
+        <!-- <p> {{company | json}} </p> -->
+        <form fxLayout="column" novalidate #companyForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="100px" fxLayoutGap.lt-md="0px">
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Company Name</mat-label>
+                    <input matInput type="text" id="companyName" [(ngModel)]="company.companyName"
+                        placeholder="Enter Company Name" required name="companyName" #companyName="ngModel">
+                    <mat-error *ngIf="companyName.errors?.required"> Company name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Comapany URL</mat-label>
+                    <input matInput type="text" id="companyURL" [(ngModel)]="company.companyURL"
+                        placeholder="Company URL" required name="companyURL" #companyURL="ngModel">
+                    <mat-error *ngIf="companyURL.errors?.required"> Company URL is required. </mat-error>
+                </mat-form-field>
+
+                <!-- <mat-form-field fxFlex>
+                    <input matInput type="text" id="remarks" [(ngModel)]="company.location" placeholder="Location"
+                        required name="location" #location="ngModel">
+                    <mat-error *ngIf="location.errors?.required"> Location is required. </mat-error>
+                </mat-form-field> -->
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Select Location</mat-label>
+                    <mat-select id="location" name="location" [(ngModel)]="company.location" #select multiple>
+                        <div class="select-all">
+                            <mat-checkbox [(ngModel)]="allSelected" [ngModelOptions]="{standalone: true}"
+                                (change)="toggleAllSelection()">Select All</mat-checkbox>
+                        </div>
+                        <mat-option (click)="optionClick()" *ngFor="let location of locations" [value]="location">
+                            {{location}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Remarks</mat-label>
+                    <input matInput type="text" id="remarks" [(ngModel)]="company.remarks" placeholder="Remarks"
+                        required name="remarks" #remarks="ngModel">
+                    <mat-error *ngIf="remarks.errors?.required"> Remark is required. </mat-error>
+                </mat-form-field>
+
+
+            </div>
+
+            <br>
+
+
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="100px" fxLayoutGap.lt-md="10px">
+                <!-- <mat-form-field fxFlex appearance="outline">
+                    <input matInput type="text" id="emailId" [(ngModel)]="company.corporatePresentation"
+                        placeholder="Corporate Presentation" required name="corporatePresentation"
+                        #corporatePresentation="ngModel">
+                    <mat-error *ngIf="corporatePresentation.errors?.required"> Corporate presentation is required.
+                    </mat-error>
+                </mat-form-field> -->
+                <div fxFlex="20">
+                    <label>Corporate Presentation</label> <br>
+                    <hr>
+                    <input type="file" name="doc" (change)="onDocSelect($event)" accept=".pdf,.doc,.docx" required>
+                </div>
+            </div>
+            <br>
+            <!--<button mat-raised-button color="primary" type="submit"
+                [disabled]="employeeForm.form.invalid">Register</button>-->
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="40px" fxLayoutGap.lt-md="20px">
+                <button mat-button fxFlex class="background-primary text-floral-white"
+                    (click)="cancel()">Cancel</button>
+                <button mat-button fxFlex class="background-primary text-floral-white" type="submit"
+                    [disabled]="companyForm.form.invalid">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <div [hidden]="!submitted">
+        <h4>Successfully submitted!</h4>
+    </div>
+    <br>
+</mat-card>

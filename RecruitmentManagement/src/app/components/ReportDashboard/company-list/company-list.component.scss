@@ -1,0 +1,85 @@
+mat-card {
+    margin: 0.4%;
+  }
+  
+  th {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    color: blueviolet;
+    background-color: lightskyblue;
+    font-size: 17px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
+  }
+  
+  td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
+    color: darkblue;
+  }
+  table {
+    border-radius: 5px 5px 5px 5px;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-left: 1px;
+    width: 99.8%;
+  }
+  
+  table tr:nth-child(odd) {
+    background-color: lightcyan;
+  }
+  table tr:nth-child(even) {
+    background-color: lightblue;
+  }
+  
+  .table-responsive {
+    overflow-y: auto;
+    // height: 350px;
+  }
+  .table-responsive thead th {
+    position: sticky;
+    top: 0;
+  }
+  
+  // ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  //   padding: .5em; padding-top: 0em;
+  //   }
+  //   ::ng-deep .button{
+  //     height:8px !important;
+  //     width:48px !important;
+  //     font-size:48px !important;
+  // }
+  
+  // .mat-detail {
+  //   background-color: black;
+  //   color: #fff;
+  // }
+  
+  // .mat-delete {
+  //   background-color: red;
+  //   color: #fff;
+  // }
+  
+  .my-fab {
+    width: 10px;
+    height: 10px;
+    line-height: 7px;
+    font-size: 7px;
+  
+    &::ng-deep .mat-button-wrapper {
+      line-height: 7px;
+      padding: 0;
+  
+      .mat-icon {
+        font-size: 7px;
+        padding-right: 4px;
+        padding-top: 4px;
+      }
+    }
+  }
+  

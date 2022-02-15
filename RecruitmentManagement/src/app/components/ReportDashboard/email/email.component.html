@@ -1,0 +1,115 @@
+<mat-toolbar color="primary">
+    Email
+    <span class="flex-spacer"></span>
+    <button mat-button mat-dialog-close>&times;</button>
+</mat-toolbar>
+
+
+<!-- <p> {{formModel | json}} </p> -->
+
+<form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <mat-dialog-content>
+
+        <p class="p">
+            <mat-form-field fxFlex="48">
+                <input matInput placeholder="Sender EmailId" [(ngModel)]="formModel.senderEmail" name="senderEmail"
+                    type="text" #senderEmail="ngModel" required>
+                <mat-error *ngIf="senderEmail.errors?.required"> Sender email is required. </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex="48">
+                <input matInput placeholder="Candidate EmailId" [(ngModel)]="formModel.candidateMail"
+                    name="candidateMail" type="text" #candidateMail="ngModel" required>
+                <mat-error *ngIf="candidateMail.errors?.required"> Candidate email is required. </mat-error>
+            </mat-form-field>
+        </p>
+
+        <p class="p">
+            <mat-form-field fxFlex="48">
+                <input matInput placeholder="Password" name="senderPass" [(ngModel)]="formModel.senderPass"
+                    type="password" #senderPass="ngModel" required>
+                <mat-error *ngIf="senderPass.errors?.required"> Password is required. </mat-error>
+            </mat-form-field>
+        </p>
+
+        <p class="p">
+            <mat-form-field fxFlex>
+                <mat-label>Cc</mat-label>
+                <mat-chip-list #chipList>
+                    <mat-chip [color]="(item.invalid)?'warn':''" selected *ngFor="let item of emailList; let i=index"
+                        [selectable]="true" [removable]="removable" (removed)="removeEmail(item)" required name="chips">
+                        {{item.value}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="enter cc " [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes " [matChipInputAddOnBlur]="true "
+                        (matChipInputTokenEnd)="add($event) " />
+                </mat-chip-list>
+                <mat-error *ngIf="rulesForm.get('emails').hasError('incorrectEmail')">Invalid email ID</mat-error>
+            </mat-form-field>
+        </p>
+
+        <p class="p">
+            <mat-form-field fxFlex>
+                <mat-label>Bcc</mat-label>
+                <mat-chip-list #chipList1>
+                    <mat-chip [color]="(item.invalid)?'warn':''" selected *ngFor="let item of emailList2; let i=index"
+                        [selectable]="true" [removable]="removable" (removed)="removeEmail2(item)" required
+                        name="chips1">
+                        {{item.value}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="enter bcc " [matChipInputFor]="chipList1"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes " [matChipInputAddOnBlur]="true "
+                        (matChipInputTokenEnd)="add1($event) " />
+                </mat-chip-list>
+                <mat-error *ngIf="rulesForm.get('emails').hasError('incorrectEmail')">Invalid email ID</mat-error>
+            </mat-form-field>
+        </p>
+
+        <div>
+            <label>Document</label> <br>
+            <hr>
+            <input type="file" name="doc" (change)="onDocSelect($event)" accept=".pdf,.doc,.docx" required>
+        </div>
+
+        <p>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Compose</mat-label>
+                <textarea matInput placeholder="Compose........" [(ngModel)]="formModel.compose" name="compose"
+                    type="text" #compose="ngModel" required cols="10" rows="4"> Compose.......</textarea>
+                <mat-error *ngIf="compose.errors?.required"> Compose mail is required. </mat-error>
+            </mat-form-field>
+
+        </p>
+        <!-- <P>
+            <ngx-recaptcha2 #captchaElem [siteKey]="'6LeOZ4YUAAAAAJ8clQYNtOXNDHsd58KZHyJeILk6'"
+                (success)="handleSuccess($event)" [useGlobalDomain]="false" [(ngModel)]="formModel.captcha"
+                name="captcha" #captchaControl="ngModel" required>
+            </ngx-recaptcha2>
+            <mat-error *ngIf="captchaControl.errors?.required"> Captcha must be solved. </mat-error>
+        </P> -->
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <span class="flex-spacer"></span>
+        <button mat-button mat-dialog-close> Cancel</button>
+        <button type="submit" mat-button class="background-primary text-floral-white"
+            [disabled]="loginForm.form.invalid">Sent</button>
+    </mat-dialog-actions>
+
+</form>
+
+
+
+<!-- <form #captchaProtectedForm="ngForm">
+    <ngx-recaptcha2 #captchaElem [siteKey]="'6LeOZ4YUAAAAAJ8clQYNtOXNDHsd58KZHyJeILk6'"
+        (success)="handleSuccess($event)" [useGlobalDomain]="false" [(ngModel)]="formModel.captcha" name="captcha"
+        required #captchaControl="ngModel">
+    </ngx-recaptcha2>
+    <div [hidden]="captchaControl.valid || captchaControl.pristine" class="error">Captcha must be solved</div>
+    <div [hidden]="!captchaControl.valid" class="success">Captcha is valid</div>
+    <div [hidden]="captchaProtectedForm.form.valid" class="error">The form must be filled out</div>
+    <div [hidden]="!captchaProtectedForm.form.valid" class="success">The form is valid</div>
+    <button (click)="formModel.captcha = ''">Reset Captcha</button>
+</form> -->

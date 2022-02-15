@@ -1,0 +1,38 @@
+<!-- <div class="header">
+    <img matListAvatar src={{logo}} alt={{logo}} height="75px" width="150px"
+        style="border-radius: 5%; margin-top: 2%; background-color: white; margin-left: 5%; margin-top: 5%;">
+</div> -->
+
+
+
+<div class="content">
+    <mat-toolbar style="background: #135e81; color: floralwhite; "></mat-toolbar>
+    <mat-nav-list style="background: #03a9f5; color: floralwhite; ">
+        <a mat-list-item routerLink="/default/home" (click)="onSidenavClose()">
+            <mat-icon slot="start" color="light"> home</mat-icon>
+            <mat-label>
+                Home
+            </mat-label>
+        </a>
+    </mat-nav-list>
+    <mat-nav-list style="background: #03a9f5; color: floralwhite;" *ngFor="let comp of appComponents">
+        <a mat-list-item routerLink={{comp.url}} (click)="onSidenavClose()">
+            <mat-icon slot="start" color="light"> {{comp.icon}} </mat-icon>
+            <mat-label>
+                {{comp.title}}
+            </mat-label>
+        </a>
+    </mat-nav-list>
+    <mat-nav-list style="background: #03a9f5; color: floralwhite; ">
+        <a mat-list-item (click)="logOut()">
+            <mat-icon slot="start" color="light"> power_settings_new </mat-icon>
+            <mat-label>
+                Log Out
+            </mat-label>
+        </a>
+    </mat-nav-list>
+    <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center;">
+        <mat-progress-spinner color="primary" mode="indeterminate">
+        </mat-progress-spinner>
+    </div>
+</div>

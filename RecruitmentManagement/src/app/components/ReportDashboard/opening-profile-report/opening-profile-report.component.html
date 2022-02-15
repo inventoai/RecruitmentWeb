@@ -1,0 +1,105 @@
+<mat-card>
+
+    <h2><b>Requirement Report</b></h2>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="table-responsive" #TABLE>
+        <table class="table" #table>
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Date</th>
+                    <th>Role</th>
+                    <th>Domain</th>
+                    <th>Comapny Name</th>
+                    <th>Client Name</th>
+                    <th>Experiance</th>
+                    <th>Budget Range</th>
+                    <th>Notice Period</th>
+                    <th>Openings</th>
+                    <th>Work Allocated</th>
+                    <th>Uploaded Profiles</th>
+                    <th>Shared Profiles With Clients</th>
+                    <th>Rejected Profiles By Clients</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let opening of openings | filter:searchText;let i=index"> -->
+                <tr *ngFor="let opening of openings ;let i=index">
+                    <td> {{i+1}} </td>
+                    <td> {{opening.dt | date:'longDate'}} </td>
+                    <td> {{opening.role}} </td>
+                    <td>{{opening.domain}} </td>
+                    <td> {{opening.companyName}} </td>
+                    <td> {{opening.clientName}} </td>
+                    <td> {{opening.experiance}} </td>
+                    <td> {{opening.budgetRange}} </td>
+                    <td> {{opening.noticePeriod}} </td>
+                    <!-- <td> {{opening.jobDescription}} </td> -->
+                    <!-- <td>
+                        <div *ngFor="let sk of opening.mandatorySkills | keyvalue">
+                            <ul *ngIf=sk.value is true>
+                                <li> {{sk.key | uppercase}} </li>
+                            </ul>
+                        </div>
+                         <div *ngFor="let sk of opening.mandatorySkills" id="menu">
+                            <ul>
+                                <li>{{sk}}</li>
+                            </ul>
+                        </div>
+                    </td> -->
+                    <!-- <td> {{opening.wfh}} </td>
+                    <td> {{opening.questions}} </td> -->
+                    <td>{{opening.nop}} </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="workAllocated(opening.id)">
+                            <b>{{opening.workAllocated}}</b>
+                            <!-- <mat-icon>open_in_new</mat-icon> -->
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="uploadedProfiles(opening.id)">
+                            <b>{{opening.uploadedProfiles}}</b>
+                            <!-- <mat-icon>open_in_new</mat-icon> -->
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="approvedProfiles(opening.id)">
+                            <b>{{opening.sharedProfiles}}</b>
+                            <!-- <mat-icon>open_in_new</mat-icon> -->
+                        </button>
+                    </td>
+                    <td>
+                        <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                            (click)="rejectedProfile(opening.id)">
+                            <b>{{opening.internalRejectedProfiles}}</b>
+                            <!-- <mat-icon>open_in_new</mat-icon> -->
+                        </button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 1%;" mat-raised-button color="primary" (click)="ExportTOExcel()">Export as Excel</button>
+
+</mat-card>

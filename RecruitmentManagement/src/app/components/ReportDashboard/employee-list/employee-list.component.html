@@ -1,0 +1,82 @@
+<mat-card>
+
+    <h2><b>Employee List</b></h2>
+    <hr>
+    <div style="text-align: end; margin: 5px;">
+        <!--   <mat-form-field appearance="outline" style="margin-top: 30px; width: 160px;">
+                <input matInput type="text" id="search" placeholder="Type to Filter..." [(ngModel)]="searchText"
+                    autocomplete="off" name="search">
+            </mat-form-field> -->
+
+        <button mat-raised-button color="primary" routerLink='/default/createemployee' routerLinkActive="active">
+            Register
+            Employee</button>
+    </div>
+    <br>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Employee Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Date of Joining</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Office Email</th>
+                    <!-- <th scope="col"> Aadhar Card</th> -->
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of dataSource | filter:searchText;let i=index">
+                    <td scope="row"> {{i+1}} </td>
+                    <!-- <td><a routerLink="" (click)="employeeDetail(employee.id)"
+                            style="text-decoration:none">{{employee.employeeName}}</a></td> -->
+                    <td>{{employee.employeeName}}</td>
+                    <td>{{employee.designation}} </td>
+                    <td> {{employee.doj | date:"longDate"}} </td>
+                    <td>{{employee.mobileNumber}}</td>
+                    <td> {{employee.officeEmailId}} </td>
+                    <!-- <td> -->
+                        <!-- <button (click)="employeeId(employee.employeeName,employee.docFile_tag)"
+                            style="text-decoration:none"> <span>
+                                <mat-icon>cloud_download_outline</mat-icon>
+                            </span>
+                        </button> -->
+                        <!-- <div>
+                            <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                                (click)="employeeId(employee.employeeName,employee.docFile_tag)">
+                                <mat-icon>cloud_download_outline</mat-icon>
+                            </button>
+                        </div> -->
+                    <!-- </td> -->
+                    <td>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="employeeDetail()">
+                            <mat-icon>remove_red_eye_outline</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="updateEmployee()">
+                            <mat-icon>edit_outline</mat-icon>
+                        </button>
+                        <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteEmployee()">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                        <!-- <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon>more_vert</mat-icon>
+                        </button> -->
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+</mat-card>
+<!-- <div style="text-align: end; margin-right: 0.5%;">
+    <button mat-raised-button color="primary" routerLink='/companylist' routerLinkActive="active">Go to Company List
+        <mat-icon>arrow_right_alt_outline</mat-icon>
+    </button>
+</div> -->

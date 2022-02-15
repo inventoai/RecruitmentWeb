@@ -1,0 +1,157 @@
+<mat-card>
+    <br>
+    <h3> Employee Registeration </h3>
+    <hr>
+    <div [hidden]="submitted" style="width:100%;" class="table-responsive">
+
+        <!-- <p> {{employee | json}} </p> -->
+        <form fxLayout="column" novalidate #employeeForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="100px" fxLayoutGap.lt-md="10px">
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Employee Name</mat-label>
+                    <input matInput type="text" id="employeeName" [(ngModel)]="employee.employeeName"
+                        placeholder="Employee Name" required name="employeeName" #employeeName="ngModel">
+                    <mat-error *ngIf="employeeName.errors?.required"> Employee name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(ngModel)]="employee.gender" #gender="ngModel" name="gender" required>
+                        <mat-option value="male">Male</mat-option>
+                        <mat-option value="female">Female</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="gender.errors?.required">Gender is required.</mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Mobile</mat-label>
+                    <input matInput type="number" id="mobileNumber" [(ngModel)]="employee.mobileNumber"
+                        placeholder="Mobile Number" name="mobileNumber" #mobileNumber="ngModel"
+                        pattern="[1-9]{1}[0-9]{9}" required>
+                    <mat-error *ngIf="mobileNumber.errors?.required"> Mobile number is required. </mat-error>
+                    <mat-error *ngIf="mobileNumber.errors?.pattern">Please, Enter 10 digit Mobile Number</mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Personal Email</mat-label>
+                    <input matInput type="text" id="personalEmailId" [(ngModel)]="employee.personalEmailId"
+                        placeholder="Personal Email Id" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                        required name="personalEmailId" #personalEmailId="ngModel">
+                    <mat-error *ngIf="personalEmailId.errors?.required"> Personal email is required. </mat-error>
+                    <mat-error *ngIf="personalEmailId.errors?.pattern"> Personal email should be end with any domain
+                        name (eg.
+                        vijay@gmail.com). </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="100px" fxLayoutGap.lt-md="10px">
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Office Email</mat-label>
+                    <input matInput type="text" id="officeEmailId" [(ngModel)]="employee.officeEmailId"
+                        placeholder="Office Email Id" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required
+                        name="officeEmailId" #officeEmailId="ngModel">
+                    <mat-error *ngIf="officeEmailId.errors?.required">Office email is required. </mat-error>
+                    <mat-error *ngIf="officeEmailId.errors?.pattern"> Office email should be end with any domain name
+                        (eg.
+                        vijay@gmail.com). </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="datepicker" id="doj" [(ngModel)]="employee.dob"
+                        placeholder="Date of Birth" name="dob" #dob="ngModel" required>
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="doj.errors?.required"> Date of birth is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <input matInput [matDatepicker]="dobpicker" id="doj" [(ngModel)]="employee.doj"
+                        placeholder="Date of Joining" name="doj" #doj="ngModel" required>
+                    <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dobpicker>
+                        <mat-datepicker-actions>
+                            <button mat-button matDatepickerCancel>Cancel</button>
+                            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                    <mat-error *ngIf="doj.errors?.required"> Date of joining is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex appearance="outline">
+                    <mat-label>Designation</mat-label>
+                    <mat-select [(ngModel)]="employee.designation" #designation="ngModel" name="designation" required>
+                        <mat-option value="Manager">Manager</mat-option>
+                        <mat-option value="Team Lead">Team Lead</mat-option>
+                        <mat-option value="Recruiter">Recruiter</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="designation.errors?.required">Designation is required.</mat-error>
+                </mat-form-field>
+            </div>
+            <div style="font-size: 12px;" fxLayout="row" fxlayout.lt-md="column" fxLayoutGap="100px"
+                fxlayoutGap.lt-md="10px">
+                <mat-form-field fxFlex="20" appearance="outline">
+                    <mat-label>Upload Doc</mat-label>
+                    <mat-select [(ngModel)]="employee.employeeId" #employeeId="ngModel" name="employeeId" required>
+                        <mat-option value="Aadhar">Aadhar Card</mat-option>
+                        <mat-option value="Pan">Pan Card</mat-option>
+                        <mat-option value="Passbook">Bank Passbook</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="employeeId.errors?.required">Doc is required.</mat-error>
+                </mat-form-field>
+
+                <div fxFlex="20">
+                    <label>Document</label> <br>
+                    <hr>
+                    <input type="file" name="doc" (change)="onDocSelect($event)" accept=".pdf,.doc,.docx" required>
+                </div>
+                <div fxFlex="20">
+                    <label>Photo</label> <br>
+                    <hr>
+                    <input type="file" name="photo" (change)="onPhotoSelect($event)" accept=".jpg,.png,.jpeg" required>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="40px" fxLayoutGap.lt-md="10px">
+
+                <h4>Access Type *</h4>
+                <p>
+                    <mat-checkbox [(ngModel)]="employee.accessType.access1" name="access1">Access-1</mat-checkbox>
+                </p>
+
+                <p>
+                    <mat-checkbox [(ngModel)]="employee.accessType.access2" name="access2">Access-2</mat-checkbox>
+                </p>
+
+                <p>
+                    <mat-checkbox [(ngModel)]="employee.accessType.access3" name="access3">Access-3</mat-checkbox>
+                </p>
+
+            </div> -->
+            <br>
+            <!--<button mat-raised-button color="primary" type="submit"
+                [disabled]="employeeForm.form.invalid">Register</button>-->
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="100px" fxLayoutGap.lt-md="20px">
+                <button mat-button fxFlex class="background-primary text-floral-white" (click)="cancel()">Back</button>
+                <button mat-button fxFlex class="background-primary text-floral-white" type="submit"
+                    [disabled]="employeeForm.form.invalid">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <div [hidden]="!submitted">
+        <h4>Successfully submitted!</h4>
+    </div>
+    <br>
+</mat-card>

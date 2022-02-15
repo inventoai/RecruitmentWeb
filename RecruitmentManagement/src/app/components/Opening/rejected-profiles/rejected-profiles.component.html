@@ -1,0 +1,73 @@
+<mat-card>
+
+    <h2><b>Rejected Profiles</b></h2>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="table-responsive" #TABLE>
+        <table class="table" #table>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Submisssion Date</th>
+                    <th scope="col"> Name</th>
+                    <th scope="col">Email Id </th>
+                    <th scope="col">Mobile </th>
+                    <th scope="col">CCTC </th>
+                    <th scope="col">ECTC </th>
+                    <th scope="col">NP </th>
+                    <th>Total Experiance</th>
+                    <th>Related Experiance</th>
+                    <th scope="col">Location </th>
+                    <th scope="col">Profile Status</th>
+                    <th scope="col">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let opening of openings | filter:searchText;let i=index"> -->
+                <tr *ngFor="let candidate of candidates ;let i=index">
+                    <td>{{i+1}} </td>
+                    <td> {{candidate.dos | date:'longDate'}} </td>
+                    <td> {{candidate.candidateName}} </td>
+                    <td> {{candidate.emailId}} </td>
+                    <td> {{candidate.mobileNumber}} </td>
+                    <td> {{candidate.cctc}} </td>
+                    <td>{{candidate.ectc}}</td>
+                    <td>{{candidate.np}}</td>
+                    <td>{{candidate.totalExperiance}}
+
+                    </td>
+                    <td>{{candidate.relatedExperiance}} </td>
+                    <td> {{candidate.location}} </td>
+                    <td>Rejected </td>
+                    <td>
+
+                        <div>
+                            <a mat-button (click)="action(candidate.emailId)" routerLinkActive="active">
+                                <span class="fa fa-sign-in fa-lg"></span>Email</a>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 1%;" mat-raised-button color="primary" (click)="ExportTOExcel()">Export as
+        Excel</button>
+
+</mat-card>

@@ -1,0 +1,111 @@
+<mat-toolbar style="background: #135e81; color: floralwhite;">
+    <div fxHide.gt-xs>
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div fxHide.gt-xs>Dashboard</div>
+    <!-- <div>
+        <a mat-button routerLink="/default/home" routerLinkActive="active"><span class="fa fa-home fa-lg"></span>
+            Home</a>
+    </div> -->
+    <!--<div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>-->
+    <div fxFlex fxLayout fxHide.xs>
+        <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+            <li>
+                <div>
+                    <a mat-button routerLink="/default/home" routerLinkActive="active"><span
+                            class="fa fa-home fa-lg"></span>
+                        Dashboard</a>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown" id="manager">
+                    <a mat-button class="dropbtn"> <span class="fa fa-users fa-lg"></span>
+                        Manager
+                    </a>
+                    <div class="dropdown-content">
+                        <a mat-button routerLink="/default/companylist" routerLinkActive="active"><span
+                                class="fa fa-list fa-lg"></span>
+                            Company List</a>
+                        <a mat-button routerLink="/default/clientlist" routerLinkActive="active"><span
+                                class="fa fa-list fa-lg"></span>
+                            Client List</a>
+                        <a mat-button routerLink="/default/employeelist" routerLinkActive="active"><span
+                                class="fa fa-list fa-lg"></span>
+                            Employee List</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown" id="teamLead">
+                    <a mat-button class="dropbtn"> <span class="fa fa-user fa-lg"></span>
+                        Team Lead
+                    </a>
+                    <div class="dropdown-content">
+                        <a mat-button routerLink="/default/createopening" routerLinkActive="active"><span
+                                class="fa fa-desktop fa-lg"></span>
+                            Create Opening </a>
+                        <a mat-button routerLink="/default/workallocation" routerLinkActive="active"><span
+                                class="fa fa-users fa-lg"></span>
+                            Work Allocation </a>
+                        <!-- <a mat-button routerLink="/default/activeopening" routerLinkActive="active"><span
+                                class="fa fa-users fa-lg"></span>
+                            Opening Dashboard </a> -->
+                        <!-- <a mat-button routerLink="/default/candidatelist" routerLinkActive="active"><span -->
+                        <a mat-button routerLink="/default/openingprofilereport" routerLinkActive="active"><span
+                                class="fa fa-briefcase fa-lg"></span>
+                            Requirement Report</a>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="dropdown" id="recruiter">
+                    <a mat-button class="dropbtn"> <span class="fa fa-user-circle fa-lg"></span>
+                        Recruiter
+                    </a>
+                    <div class="dropdown-content">
+                        <a mat-button [routerLink]="['/default/employeedetail', employeeId]"
+                            routerLinkActive="active"><span class="fa fa-file fa-lg"></span> Upload Profile</a>
+                        <a mat-button [routerLink]="['/default/dailyworkreport', employeeName, 'detail', employeeId]"
+                            routerLinkActive="active"><span class="fa fa-file fa-lg"></span> Profiles Status</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- <div class="dropdown">
+        <button class="dropbtn">Dropdown
+            <i class="fa fa-caret-down"></i>
+        </button> 
+        <ul style="list-style: none; margin-top: 22px;">
+            <li><a mat-button class="dropbtn"> Dropdown
+                    <i class="fa fa-caret-down"></i>
+                </a></li>
+        </ul>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div> -->
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a mat-button (click)="logOut()"><span class="fa fa-sign-in fa-lg"></span> Logout</a>
+    </div>
+</mat-toolbar>
+
+<!-- <div class="container jumbotron" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column"
+    fxLayoutAlign.xs="start center" fxLayoutAlign.sm="start center" fxLayoutAlign.gt-sm="center center"
+    fxLayoutGap="5px">
+
+    <div fxFlex fxFlex.gt-sm="50%">
+        <h1>Recruitment Management</h1>
+        <p>Izeetek provides comprehensive solutions and services that meet and exceed the business needs and goals of
+            our clients. Our company prides itself on the consultative partnerships and solutions we provide for every
+            employment demand.</p>
+    </div>
+    <div fxFlex fxFlex.gt-sm="20%">
+        <img src="/assets/images/logo1.jpg" alt="Logo" height=130 width=141>
+    </div>
+    <div fxFlex></div>
+</div> -->

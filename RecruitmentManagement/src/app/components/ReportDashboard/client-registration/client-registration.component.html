@@ -1,0 +1,98 @@
+<mat-card>
+    <br>
+    <h3> Register Client </h3>
+    <hr>
+    <div [hidden]="submitted" style="width:100%;" class="table-responsive">
+
+        <p> {{client | json}} </p>
+        <form fxLayout="column" novalidate #clientForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="120px" fxLayoutGap.lt-md="0px">
+
+
+                <mat-form-field fxFlex>
+                    <mat-label>Company name </mat-label>
+                    <mat-select id="companyName" name="companyName" [(ngModel)]="client.companyName"
+                        #companyName="ngModel" required>
+                        <mat-option *ngFor="let company of companies" value="company">
+                            {{company.companyName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="companyName.errors?.required"> Company name name is required. </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="clientName" [(ngModel)]="client.clientName"
+                        placeholder="Client Name" required name="clientName" #clientName="ngModel">
+                    <mat-error *ngIf="clientName.errors?.required"> Client name is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="clientURL" [(ngModel)]="client.clientURL" placeholder="Client URL"
+                        required name="clientURL" #clientURL="ngModel">
+                    <mat-error *ngIf="clientURL.errors?.required"> Client URL is required. </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <br>
+
+
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="40px" fxLayoutGap.lt-md="10px">
+
+                <!-- <mat-form-field fxFlex>
+                    <input matInput type="text" id="emailId" [(ngModel)]="client.corporatePresentation"
+                        placeholder="Corporate Presentation" required name="corporatePresentation"
+                        #corporatePresentation="ngModel">
+                    <mat-error *ngIf="corporatePresentation.errors?.required"> Corporate presentation is required.
+                    </mat-error>
+                </mat-form-field> -->
+
+
+
+                <mat-form-field fxFlex>
+                    <mat-label>Branches</mat-label>
+                    <!-- <input matInput type="text" id="branches" [(ngModel)]="client.branches" placeholder="Branches"
+                        required name="branches" #branches="ngModel"> -->
+                    <mat-select id="branches" [(ngModel)]="client.branches" required name="branches"
+                        #branches="ngModel">
+                        <mat-option *ngFor="let loc of location" [value]="loc">
+                            {{loc}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="branches.errors?.required"> Branch is required. </mat-error>
+                </mat-form-field>
+
+                <mat-form-field fxFlex>
+                    <input matInput type="text" id="remarks" [(ngModel)]="client.remarks" placeholder="Remarks" required
+                        name="remarks" #remarks="ngModel">
+                    <mat-error *ngIf="remarks.errors?.required"> Remark is required. </mat-error>
+                </mat-form-field>
+
+            </div>
+
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="40px" fxLayoutGap.lt-md="10px">
+                <div fxFlex="20">
+                    <label>Corporate Presentation</label> <br>
+                    <hr>
+                    <input type="file" name="doc" (change)="onDocSelect($event)" accept=".pdf,.doc,.docx" required>
+                </div>
+            </div>
+
+            <br>
+            <!--<button mat-raised-button color="primary" type="submit"
+                [disabled]="employeeForm.form.invalid">Register</button>-->
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="40px" fxLayoutGap.lt-md="20px">
+                <button mat-button fxFlex class="background-primary text-floral-white"
+                    (click)="cancel()">Cancel</button>
+                <button mat-button fxFlex class="background-primary text-floral-white" type="submit"
+                    [disabled]="clientForm.form.invalid">Register</button>
+            </div>
+        </form>
+    </div>
+
+    <div [hidden]="!submitted">
+        <h4>Successfully submitted!</h4>
+    </div>
+    <br>
+</mat-card>

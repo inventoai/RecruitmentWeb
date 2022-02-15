@@ -1,0 +1,82 @@
+<mat-card>
+
+    <h2><b> Work Allocation</b></h2>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="table-responsive" #TABLE>
+        <table class="table" #table>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Recruiter Name</th>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Requirement </th>
+                    <!-- <th scope="col"> Status </th> -->
+                    <th scope="col"> Action </th>
+                </tr>
+            </thead>
+            <!-- <tbody *ngFor="let data of dataSource | filter:searchText; let i = index"> -->
+            <tbody *ngFor="let data of dataSource; let i = index">
+                <!-- <tr *ngIf="openingId == opening.id"> -->
+                <!-- <tr *ngIf="openingId == data.openingId"> -->
+                <tr>
+                    <td> {{i+1}} </td>
+                    <td>{{data.date_time | date:"longDate"}}</td>
+                    <td>{{data.date_time | date:"mediumTime"}}</td>
+                    <td> {{data.recruiterName}} </td>
+                    <td>
+                        <!--<div *ngFor="let item of opening.companyName | keyvalue">
+                            <ul *ngIf=item.value is true>
+                                <li>{{item.key | uppercase}}</li>
+                            </ul>
+                        </div>-->
+                        {{data.companyName}}
+                    </td>
+                    <td>
+                        <!--<div *ngFor="let item of opening.clientName | keyvalue">
+                            <ul *ngIf=item.value is true>
+                                <li>{{item.key | uppercase}}</li>
+                            </ul>
+                        </div>-->
+                        {{data.clientName}}
+                    </td>
+                    <!-- <td> <a mat-button routerLink="/uploadresume"><b>{{opening.role}}</b> </a> </td> -->
+                    <td>{{data.role}}</td>
+                    <!-- <td> {{data.position}}</td> -->
+                    <td>
+                        <div>
+                            <!-- <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                                (click)="editWorkAllocation()">
+                                <mat-icon>edit_outline</mat-icon>
+                            </button> -->
+                            <a mat-button (click)="editWorkAllocation()"><span class="fa fa-sign-in fa-lg"></span></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+    <br>
+
+    <button mat-raised-button color="primary" (click)="list()">Back to Report Dashboard</button>
+    <button style="margin-left: 1%;" mat-raised-button color="primary" (click)="ExportTOExcel()">Export as
+        Excel</button>
+</mat-card>

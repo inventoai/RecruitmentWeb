@@ -1,0 +1,99 @@
+.employee {
+    // justify-content: space-between;
+    font-size: 12px;
+}
+
+th {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    color: blueviolet;
+    background-color: lightblue;
+    font-size: 15px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
+}
+
+td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+    font-size: 13px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
+    color: darkblue;
+}
+table {
+    border-radius: 5px 5px 5px 5px;
+    border-collapse: collapse;
+    padding: 5px;
+    margin-left: 1px;
+    width: 99%;
+}
+
+table tr:nth-child(odd) {
+    background-color: lightcyan;
+}
+table tr:nth-child(even) {
+    background-color: lightsalmon;
+}
+
+.table-responsive {
+    overflow-y: auto;
+    height: 450px;
+}
+.table-responsive thead th {
+    position: sticky;
+    top: 0;
+}
+
+button {
+    background-color: rgb(19, 94, 129);
+    color: white;
+    margin-right: 1%;
+}
+
+p {
+    font-family: Lato;
+}
+
+.animate {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    // border: 0.1rem solid black;
+    // margin: 2rem;
+    color: red;
+}
+
+span {
+    display: inline-block;
+    animation: 20s linear 0s infinite normal animate;
+}
+
+.advanced {
+    position: relative;
+    animation: 15s linear 0s infinite alternate advanced;
+}
+
+@keyframes animate {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes advanced {
+    0%,
+    25% {
+        transform: translateX(0%);
+        left: 0%;
+    }
+    75%,
+    100% {
+        transform: translateX(-100%);
+        left: 100%;
+    }
+}

@@ -1,0 +1,101 @@
+<mat-card>
+
+    <h2><b>Work Allocation</b></h2>
+
+    <hr />
+
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Date and Time</th>
+                    <th scope="col">Company Name</th>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Requirement </th>
+                    <!-- <th scope="col">Status</th> -->
+                    <th scope="col">Recruiter</th>
+                    <th scope="col">Slot</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let opening of openings | async | filter:searchText; let i = index"> -->
+                <tr *ngFor="let opening of openings; let i = index">
+                    <td> {{i+1}} </td>
+                    <td>{{opening.dt}} </td>
+                    <td>
+                        <!--<div *ngFor="let item of opening.companyName | keyvalue">
+                            <ul *ngIf=item.value is true>
+                                <li>{{item.key | uppercase}}</li>
+                            </ul>
+                        </div>-->
+                        {{opening.companyName}}
+                    </td>
+                    <td>
+                        <!--<div *ngFor="let item of opening.clientName | keyvalue">
+                            <ul *ngIf=item.value is true>
+                                <li>{{item.key | uppercase}}</li>
+                            </ul>
+                        </div>-->
+                        {{opening.clientName}}
+                    </td>
+                    <td>{{opening.role}}</td>
+                    <!-- <td>{{opening.position}} </td> -->
+                    <td>
+                        <mat-form-field style="font-size: 10px;">
+                            <mat-select (selectionChange)="recruiterAllocation($event.value,opening.id)">
+                                <mat-option *ngFor="let emp of employees" [value]="emp.id">
+                                    <p>{{emp.employeeName}}</p>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field style="font-size: 10px;">
+                            <mat-select (selectionChange)="slotAllocation($event.value)">
+                                <mat-option *ngFor="let slot of slots" [value]="slot">
+                                    <p>{{slot}}</p>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <div>
+                            <!-- <button mat-mini-fab color="primary" aria-label="Example icon button with a menu icon"
+                                (click)="workAllocation()">
+                                <mat-icon>check_outline</mat-icon>
+                            </button> -->
+                            <a mat-button (click)="workAllocation(opening.id)"><span
+                                    class="fa fa-sign-in fa-lg"></span></a>
+                            <!-- <button mat-icon-button color="primary" aria-label="Example icon button with a home icon"
+                                (click)="workAllocation()">
+                                <mat-icon>check_outline</mat-icon>
+                            </button> -->
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+    </div>
+
+    <br>
+
+    <button mat-raised-button color="warn" (click)="list()">Back to Report Dashboard</button>
+
+</mat-card>

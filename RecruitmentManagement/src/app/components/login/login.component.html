@@ -1,0 +1,92 @@
+<!-- <mat-toolbar color="primary">
+    Login
+    <span class="flex-spacer"></span>
+    <button mat-button mat-dialog-close>&times;</button>
+  </mat-toolbar>
+  
+  
+  <p> {{user | json}} </p>
+  
+  <form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+  
+    <mat-dialog-content>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" type="text"
+            #userName="ngModel" required>
+          <mat-error *ngIf="userName.errors?.required"> Username is required. </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput placeholder="Password" name="password" [(ngModel)]="user.password" type="password"
+            #password="ngModel" required>
+          <mat-error *ngIf="password.errors?.required"> Password is required. </mat-error>
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="user.remember" name="remember">
+          Remember Me
+        </mat-checkbox>
+      </p>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <span class="flex-spacer"></span>
+      <button mat-button mat-dialog-close> Cancel</button>
+      <button type="submit" mat-button class="background-primary text-floral-white"
+      [disabled]="loginForm.form.invalid">Login</button>
+    </mat-dialog-actions>
+  
+  </form> -->
+
+
+<div class="login-container">
+  <mat-toolbar class="login-toolbar" style="background-color: #135e81; color: white;">Recruitment Management</mat-toolbar>
+  <div class="login-content">
+    <div fxFlex="100" style="margin: 1%;">
+      <mat-card>
+        <!-- <p> {{user | json}} </p> -->
+        <form novalidate #loginForm="ngForm" (ngSubmit)="onSubmit()">
+          <div fxLayout="column" fxLayout.lt-md="column" fxLayoutGap="10" fxlayoutGap.lt-md="10px">
+
+            <mat-form-field fxFlex>
+              <mat-label>Login Type</mat-label>
+              <mat-icon matPrefix>group</mat-icon>
+              <mat-select [(ngModel)]="user.loginType" [ngModelOptions]="{standalone: true}" #loginType="ngModel"
+                required>
+                <mat-option value="Admin">Admin</mat-option>
+                <mat-option value="Employee">Employee</mat-option>
+                <!-- <mat-option value="Manager">Manager</mat-option>
+                <mat-option value="Team Lead">Team Lead</mat-option>
+                <mat-option value="Recruiter">Recruiter</mat-option> -->
+              </mat-select>
+              <mat-error *ngIf="loginType.errors?.required">Login type is required.</mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+              <mat-icon matPrefix>person_outline</mat-icon>
+              <input matInput placeholder="Username" [(ngModel)]="user.userName" name="userName" type="text"
+                [ngModelOptions]="{standalone: true}" #userName="ngModel" required>
+              <mat-error *ngIf="userName.errors?.required"> Username is required. </mat-error>
+            </mat-form-field>
+
+            <mat-form-field fxFlex>
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <input type="password" autocomplete="false" matInput placeholder="Password" [(ngModel)]="user.password"
+                name="password" #password="ngModel" required>
+              <mat-error *ngIf="password.errors?.required">Password is required.</mat-error>
+            </mat-form-field>
+
+            <div fxFlex>
+              <button type="submit" mat-raised-button style="background-color: #135e81; color: white;">Login</button>
+            </div>
+          </div>
+        </form>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+          <mat-progress-spinner color="primary" mode="indeterminate">
+          </mat-progress-spinner>
+        </div>
+      </mat-card>
+    </div>
+    <!-- <div fxFlex style="margin: 1%;">
+      <mat-card></mat-card>
+    </div> -->
+  </div>
+</div>

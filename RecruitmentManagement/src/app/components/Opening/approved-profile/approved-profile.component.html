@@ -1,0 +1,163 @@
+<mat-card>
+
+    <h3><b>List Of Shared Profiles With Clients (For Team Lead)</b></h3>
+    <hr>
+    <div style="text-align: start; font-size: 14px;">
+        <mat-form-field appearance="outline">
+            <input matInput [matDatepicker]="picker" placeholder={{searchText}} [(ngModel)]="searchText1">
+            <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <button mat-button matSuffix (click)="dateFormat()">
+                <mat-icon matSuffix>search</mat-icon>
+            </button>
+            <button mat-button matSuffix (click)="refresh()">
+                <mat-icon matSuffix>refresh</mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div class="table-responsive" #TABLE>
+        <table class="table" #table>
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Submisssion Date</th>
+                    <th scope="col"> Name</th>
+                    <th scope="col">Email Id </th>
+                    <th scope="col">Mobile </th>
+                    <th scope="col">CCTC </th>
+                    <th scope="col">ECTC </th>
+                    <th scope="col">NP </th>
+                    <th>Total Experiance</th>
+                    <th>Related Experiance</th>
+                    <th scope="col">Location </th>
+                    <th scope="col">Remarks </th>
+                    <th scope="col">Profile Status</th>
+                    <th scope="col">Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngFor="let candidate of candidates | filter:searchText; let i=index"> -->
+                <tr *ngFor="let candidate of candidates; let i=index">
+                    <td>{{i+1}} </td>
+                    <td> {{candidate.dos | date:'longDate'}} </td>
+                    <td> {{candidate.candidateName}} </td>
+                    <td> {{candidate.emailId}} </td>
+                    <td> {{candidate.mobileNumber}} </td>
+                    <td> {{candidate.cctc}} </td>
+                    <td>{{candidate.ectc}}</td>
+                    <td>{{candidate.np}}</td>
+                    <td>{{candidate.totalExperiance}}
+                        <div id="myDIV">
+                            <h3>Select Slot</h3>
+                            <hr>
+                            <form>
+                                <div fxLayout="row" fxLayout.md_lt="col" fxLayoutGap="10px" fxLayoutGap.md_lt="0px">
+                                    <mat-form-field fxFlex appearance="outline">
+                                        <mat-label> Select Date</mat-label>
+                                        <!-- <input matInput type="datetime-local" id="schedule" name="schedule"> -->
+                                        <input matInput type="date" id="appt" name="appt">
+                                    </mat-form-field>
+
+
+                                    <mat-form-field fxFlex appearance="outline">
+                                        <mat-label> Mode </mat-label>
+                                        <mat-select>
+                                            <mat-option value="TCon">TCon</mat-option>
+                                            <mat-option value="MSTeam">MSTeam</mat-option>
+                                            <mat-option value="GMeet">GMeet</mat-option>
+                                            <mat-option value="WebRx">WebRx</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxLayout="row" fxLayout.md_lt="col" fxLayoutGap="10px" fxLayoutGap.md_lt="0px">
+                                    <mat-form-field fxFlex appearance="outline">
+                                        <mat-label> Start Time</mat-label>
+                                        <!-- <input matInput type="datetime-local" id="schedule" name="schedule"> -->
+                                        <input matInput type="time" id="appt" name="appt">
+                                    </mat-form-field>
+
+                                    <mat-form-field fxFlex appearance="outline">
+                                        <mat-label> End Time</mat-label>
+                                        <!-- <input matInput type="datetime-local" id="schedule" name="schedule"> -->
+                                        <input matInput type="time" id="appt" name="appt">
+                                    </mat-form-field>
+                                </div>
+
+                                <div>
+
+                                    <div fxFlex>
+                                        <button mat-raised-button color="primary" style="margin-right: 2px;"
+                                            (click)="cancel()">Cancel</button>
+                                        <button mat-raised-button color="primary" (click)="book(10)">Request Slot
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </td>
+                    <td>{{candidate.relatedExperiance}} </td>
+                    <td> {{candidate.location}} </td>
+                    <td>{{candidate.remarks}}</td>
+                    <td>{{candidate.position}} </td>
+                    <td>
+                        <div class="dropdown" id="recruiter">
+                            <a mat-button class="dropbtn"> <span class="fa fa-user-circle fa-lg"></span>
+                                Profile
+                            </a>
+                            <div class="dropdown-content">
+                                <!-- <a mat-button (click)="action(candidate.emailId)" routerLinkActive="active">
+                                    <span class="fa fa-sign-in fa-lg"></span>Email</a> -->
+                                <a mat-button (click)="approvedProfile(candidate.id)" routerLinkActive="active">
+                                    <span class="fa fa-check fa-lg"></span> Duplicate</a>
+                                <a mat-button (click)="rejectProfile(candidate.id)" routerLinkActive="active">
+                                    <span class="fa fa-ban fa-lg"></span> Screen Rejected</a>
+                                <a mat-button (click)="approvedProfile(candidate.id)" routerLinkActive="active">
+                                    <span class="fa fa-check fa-lg"></span> Screen Selected</a>
+                                <div class="dropdown1" id="recruiter1">
+                                    <a mat-button> <span class="fa fa-sign-in fa-lg"></span>
+                                        Need to Process for L1
+                                    </a>
+                                    <div class="dropdown1-content1" style="float:left;">
+                                        <a mat-button routerLinkActive="active" (click)="myFunction()">
+                                            <span class="fa fa-sign-in fa-lg"></span>Slot Confirmation</a>
+                                        <div class="dropdown2" id="recruiter2">
+                                            <a mat-button routerLinkActive="active">
+                                                <span class="fa fa-check fa-lg"></span> Processed for L1</a>
+                                            <div class="dropdown2-content2" style="float:left;">
+                                                <a mat-button routerLinkActive="active">
+                                                    <span class="fa fa-check fa-lg"></span> Attended</a>
+                                                <a mat-button routerLinkActive="active">
+                                                    <span class="fa fa-check fa-lg"></span> No Show</a>
+                                                <a mat-button routerLinkActive="active">
+                                                    <span class="fa fa-check fa-lg"></span> CBP</a>
+                                                <a mat-button routerLinkActive="active">
+                                                    <span class="fa fa-check fa-lg"></span> CBC</a>
+                                                <a mat-button routerLinkActive="active">
+                                                    <span class="fa fa-check fa-lg"></span> Need to Reschedule</a>
+                                                <a mat-button routerLinkActive="active">Interviewer Feedback
+                                                    Pending</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; background: white;">
+            <mat-progress-spinner color="primary" mode="indeterminate">
+            </mat-progress-spinner>
+        </div>
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="back()">Back</button>
+    <button style="margin-left: 1%;" mat-raised-button color="primary" (click)="ExportTOExcel()">Export as
+        Excel</button>
+
+</mat-card>
