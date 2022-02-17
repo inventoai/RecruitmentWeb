@@ -3,7 +3,8 @@
         <h3>Create Opening</h3>
         <hr>
         <div style="text-align: end;">
-            <button mat-raised-button color="primary" (click)="addDomain()">Add New Domain</button>
+            <button style="margin-right: 1%;" mat-raised-button color="primary" (click)="addDomain()">Add New Domain</button>
+            <button mat-raised-button color="primary" (click)="addLocation()">Add New Location</button>
         </div>
         <br>
         <div [hidden]="submitted" style="width:100%;" class="table-responsive">
@@ -257,7 +258,8 @@
                 <mat-form-field fxFlex="25">
                     <mat-label>Domain</mat-label>
                     <input matInput type="text" id="domain" placeholder="Enter domain name.." formControlName="domain" required>
-                    <mat-error *ngIf="domain.errors?.required">Domain name is required.</mat-error>
+                    <!-- <mat-error *ngIf="domain.errors?.required">Domain name is required.</mat-error> -->
+                    <mat-error>Domain name is required.</mat-error>
                 </mat-form-field>
             </div>
 
@@ -277,6 +279,30 @@
             <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="10px">
                 <button fxFlex="10" type="button" mat-raised-button color="warn" (click)="back()">Back</button>
                 <button fxFlex="10" mat-raised-button color="primary" type="submit" [disabled]="domainForm.invalid">Create</button>
+            </div>
+        </form>
+    </mat-card>
+
+</div>
+
+<div id="locationForm" style="display: none;">
+    <mat-card>
+        <h3>Add New Location</h3>
+        <p>{{locationForm.value | json}}</p>
+        <hr>
+        <br>
+        <form autocomplete="off" novalidate [formGroup]="locationForm" (ngSubmit)="submitLocation()">
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px" fxLayoutGap.lt-md="5px">
+                <mat-form-field fxFlex="25">
+                    <mat-label>Location</mat-label>
+                    <input matInput type="text" id="location" placeholder="Enter location name.." formControlName="location" required>
+                    <mat-error>Location name is required.</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="10px">
+                <button fxFlex="10" type="button" mat-raised-button color="warn" (click)="back()">Back</button>
+                <button fxFlex="10" mat-raised-button color="primary" type="submit" [disabled]="locationForm.invalid">Create</button>
             </div>
         </form>
     </mat-card>

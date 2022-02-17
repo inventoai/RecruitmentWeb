@@ -66,6 +66,7 @@ export class CreateOpeningComponent implements OnInit {
   domainForm: FormGroup;
   domains: Observable<any>;
   roles: any;
+  locationForm: FormGroup;
 
   constructor(private router: Router, private openingService: OpeningService, private _location: Location, private generalService: GeneralService,
     private employeeService: EmployeeService, private fb: FormBuilder) {
@@ -79,10 +80,14 @@ export class CreateOpeningComponent implements OnInit {
       this.companies = data;
       console.log(data);
     });
-    // this.roles = this.role1.concat(this.role2);
     this.domainForm = this.fb.group({
       domain: ['']
     });
+
+    this.locationForm = this.fb.group({
+      location: ['']
+    });
+
     this.reloadDomain();
   }
 
@@ -291,6 +296,8 @@ export class CreateOpeningComponent implements OnInit {
     openingFormId.style.display = "block";
     var domainFormId = document.getElementById("domainForm");
     domainFormId.style.display = "none";
+    var locationFormId = document.getElementById("locationForm");
+    locationFormId.style.display = "none";
   }
 
   removeEmail(data: any): void {
@@ -311,6 +318,17 @@ export class CreateOpeningComponent implements OnInit {
     if (event.input) {
       event.input.value = '';
     }
+  }
+
+  addLocation() {
+    var openingFormId = document.getElementById("openingForm");
+    openingFormId.style.display = "none";
+    var domainFormId = document.getElementById("locationForm");
+    domainFormId.style.display = "block";
+  }
+
+  submitLocation() {
+    alert("New location is added.");
   }
 
 }

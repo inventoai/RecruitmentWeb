@@ -1,74 +1,76 @@
 th {
-  border: 1px solid grey;
-  border-collapse: collapse;
-  // padding: 5px;
-  color: blueviolet;
-  background-color: lightskyblue;
-  // height: 50px;
-  // width: 1400px;
-  font-size: 12px;
-  border-radius: 0px 0px 0px 0px;
-  text-align: center;
+    border: 1px solid grey;
+    border-collapse: collapse;
+    // padding: 5px;
+    color: blueviolet;
+    background-color: lightskyblue;
+    // height: 50px;
+    // width: 1400px;
+    font-size: 12px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
 }
 
 td {
-  border-collapse: collapse;
-  // padding: 5px;
-  // height: 50px;
-  // width: 1370px;
-  font-size: 12px;
-  border-radius: 0px 0px 0px 0px;
-  text-align: center;
-  color: darkblue;
+    border-collapse: collapse;
+    // padding: 5px;
+    // height: 50px;
+    // width: 1370px;
+    font-size: 12px;
+    border-radius: 0px 0px 0px 0px;
+    text-align: center;
+    color: darkblue;
 }
+
 table {
-  // border-radius: 5px 5px 5px 5px;
-  // border-collapse: collapse;
-  // padding: 5px;
-  // margin-left: 1px;
-  text-align: center;
-  width: 100%;
+    // border-radius: 5px 5px 5px 5px;
+    // border-collapse: collapse;
+    // padding: 5px;
+    // margin-left: 1px;
+    text-align: center;
+    width: 100%;
 }
 
 table tr:nth-child(odd) {
-  background-color: lightcyan;
+    background-color: lightcyan;
 }
+
 table tr:nth-child(even) {
-  background-color: lightblue;
+    background-color: lightblue;
 }
 
 .table-responsive {
-  overflow-y: auto;
-  height: 350px;
+    overflow-y: auto;
+    height: 350px;
 }
+
 .table-responsive thead th {
-  position: sticky;
-  top: 0;
+    position: sticky;
+    top: 0;
 }
 
 mat-progress-spinner {
-  position: absolute;
-  top: 200px;
+    position: absolute;
+    top: 200px;
 }
 
 circle {
-  stroke-width: 11%;
+    stroke-width: 11%;
 }
 
-::ng-deep .mat-form-field-flex > .mat-form-field-infix {
-  padding: 0.4em 0px !important;
+::ng-deep .mat-form-field-flex>.mat-form-field-infix {
+    padding: 0.4em 0px !important;
 }
+
 ::ng-deep .mat-form-field-label-wrapper {
-  top: -1.5em;
+    top: -1.5em;
 }
 
-::ng-deep
-  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
-  .mat-form-field-label {
-  transform: translateY(-1.1em) scale(0.75);
-  width: 133.33333%;
+::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(0.75);
+    width: 133.33333%;
 }
 
 mat-raised-button {
-  width: 50px;
+    width: 50px;
 }

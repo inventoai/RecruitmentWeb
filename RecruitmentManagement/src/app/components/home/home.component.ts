@@ -80,6 +80,10 @@ export class HomeComponent implements OnInit {
     employeeId: ''
   };
 
+  autoGrowTextZone(e) {
+    e.target.style.height = "0px";
+    e.target.style.height = (e.target.scrollHeight + 25) + "px";
+  }
 
 
   onSubmit() {

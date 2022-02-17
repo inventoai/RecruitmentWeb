@@ -14,8 +14,7 @@
 <mat-card>
 
 
-    <div class="employee" *ngFor="let emp of dataSource" fxLayout="row" fxLayout.lt-md="column"
-        fxLayoutGap.lt-md="10px">
+    <div class="employee" *ngFor="let emp of dataSource" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap.lt-md="10px">
         <div fxFlex>
             <p><label for="">Employee Name</label> : {{emp.employee }}</p>
             <!-- <p><label for="">Mobile</label> : {{emp.mobileNumber}}</p> -->
@@ -57,8 +56,7 @@
 
                     <p>
                         <mat-form-field fxFlex="30">
-                            <input matInput [matDatepicker]="datepicker" id="doj" [(ngModel)]="tasks.date"
-                                placeholder="Date" name="dob" #dob="ngModel" required>
+                            <input matInput [matDatepicker]="datepicker" id="doj" [(ngModel)]="tasks.date" placeholder="Date" name="dob" #dob="ngModel" required>
                             <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
                             <mat-datepicker #datepicker>
                                 <mat-datepicker-actions>
@@ -72,8 +70,7 @@
 
                     <p>
                         <mat-form-field fxFlex="30">
-                            <textarea matInput type="text" id="task" [(ngModel)]="tasks.task" placeholder="Task"
-                                required name="task" #task="ngModel">
+                            <textarea matInput type="text" id="task" [(ngModel)]="tasks.task" placeholder="Task" (keyup)="autoGrowTextZone($event)" required name="task" #task="ngModel">
                             </textarea>
                             <mat-error *ngIf="task.errors?.required"> Task is required. </mat-error>
                         </mat-form-field>
